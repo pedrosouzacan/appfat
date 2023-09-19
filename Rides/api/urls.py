@@ -1,23 +1,13 @@
 from django.urls import path
 from rides.api.views import (RidesAPIView,
-                       RideAPIView,
-                       ProfileAPIView,
-                       ProfilesAPIView,
-                       PostProfileAPIView,
-                       DeleteProfileAPIView,
-                       RidesFiltroAPIView,
-                       RidesViewSet,
-                       ProfileViewSet
-                       )
-# DRF
-"""
-from rest_framework.routers import SimpleRouter
-
-router = SimpleRouter()
-router.register('rides', RidesViewSet)
-router.register('profiles', ProfileViewSet)
-
-"""
+                             RideAPIView,
+                             ProfileAPIView,
+                             ProfilesAPIView,
+                             PostProfileAPIView,
+                             DeleteProfileAPIView,
+                             RidesFiltroAPIView,
+                             
+                             )
 
 
 # create your routes here !
