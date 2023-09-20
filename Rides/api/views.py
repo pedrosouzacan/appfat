@@ -19,9 +19,6 @@ API de Rides (v1)
 
 
 class RidesAPIView(generics.ListCreateAPIView):
-    """
-    Listar Rides mediante filtro
-    """
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
 
@@ -29,13 +26,10 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         dicionario_request = self.request.GET.dict()
-        print(dicionario_request)
         return self.queryset.filter(**dicionario_request)
 
-    def post(self, request):
-        serializer = RidesSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return self.create(request, serializer.data, status=status.HTTP_201_CREATED)
+    def post(self, request, *args, **Kwargs):
+        return self.create(request, *args, **Kwargs)
 
 
 class RideAPIView(generics.GenericAPIView,
@@ -61,6 +55,9 @@ class RideAPIView(generics.GenericAPIView,
 
 # metodo para filtrar caronas segundo usuario como passageiro
 class RidesFiltroAPIView(generics.ListAPIView):
+    """
+    Listar Rides mediante filtro
+    """
     queryset = Ride.objects.all()
     serializer_class = ProfileSerializer
 
