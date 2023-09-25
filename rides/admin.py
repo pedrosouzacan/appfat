@@ -7,7 +7,7 @@ from .models import Ride, Profile
 @admin.register(Ride)
 class RideAdmin(admin.ModelAdmin):
     list_display = ('motorista', 'data_publicaçao',
-                    'data_saida', 'info')
+                    'data_saida', 'origem','destino','preço','veiculo')
 
 
 @admin.register(Profile)
