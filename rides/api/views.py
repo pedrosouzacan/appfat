@@ -41,6 +41,9 @@ class RidesAPIView(generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+    
+
+
 
 
 class RideDetailAPIView(generics.GenericAPIView,

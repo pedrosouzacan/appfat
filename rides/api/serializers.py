@@ -16,26 +16,23 @@ class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    senha = serializers.CharField(write_only = True)
+    senha2 = serializers.CharField(write_only = True)
     
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['user','nome','email','diretorio','placa_carro','cnh','senha','senha2']
         
-        def save_senha(self,validated_data):
-            # Extraia a senha do payload validado
-            senha = validated_data.pop('senha', None)
-            
-             # Crie um novo usuário com os outros dados fornecidos
-            user = User(**validated_data)
-
-        # Use set_senha para criptografar e definir a senha
-            if senha is not None:
-                user.set_senha(senha)
-
-        # Salve a senha no  banco de dados
-            user.save()
-            return user
+        def save(self):
+            user = User()
+            user.email = self.validated_data["email"] # validação do campo 'email'
+            user.username = self.validated_data["username"] # validação do campo 'nome usuario'
+            senha = self.validated_data["senha"] # validação do campo 'senha'
+            senha2 = self.validated_data["senha2"]# validação do campó 'senha2'
+            if senha != senha2:
+                raise serializers.ValidationError({'error': 'As senhas precisam ser iguais.'})
+            user.set_password(senha2) #criptografar senha 
+            user.save() # senha criptografada salva
+            return user # retornar user com senha criptografada
 
 
 class RidesSerializer(serializers.ModelSerializer):
