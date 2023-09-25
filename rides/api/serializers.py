@@ -36,12 +36,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class RidesSerializer(serializers.ModelSerializer):
-    passageiros = CarregaDadosPassageirosSerializer(many=True, required=False)
-    # passageiros_id = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=User.objects.all(),source='passageiros')
+    passageiro = CarregaDadosPassageirosSerializer(many=True, required=False)
+    passageiros_id = serializers.PrimaryKeyRelatedField(many=True, read_only=False, queryset=User.objects.all(),source='passageiros')
 
     class Meta:
         model = Ride
-        fields = '__all__'
+        fields = ['motorista','passageiro','passageiros_id','data_publicaçao',
+                  'data_saida','origem','destino','preço','veiculo','modalidade']
 
     def update(self, instance, validated_data):
         passageiros = validated_data.pop('passageiros')
