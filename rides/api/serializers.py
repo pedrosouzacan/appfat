@@ -16,9 +16,23 @@ class CarregaDadosPassageirosSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    senha = serializers.CharField(write_only = True)
+    
     class Meta:
         model = Profile
         fields = '__all__'
+        
+        def save_senha(self,validated_data):
+            # Extraia a senha do payload validado
+            senha = validated_data.pop('senha', None)
+
+        # Use set_senha para criptografar e definir a senha
+            if senha is not None:
+                senha.set_senha(senha)
+
+        # Salve a senha no  banco de dados
+            senha.save()
+            return senha
 
 
 class RidesSerializer(serializers.ModelSerializer):

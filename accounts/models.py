@@ -19,7 +19,9 @@ class Profile(mo.Model):
     email = mo.EmailField(max_length=50)
     placa_carro = mo.CharField(max_length=8, null=True, blank=True)
     cnh = mo.IntegerField(blank=True, null=True)
-    diretorio = mo.CharField(max_length=255)
+    diretorio = mo. ImageField(upload_to=None, height_field=None,
+                               width_field=None,  blank=False,
+                               default='/rides/static/img')
     senha = mo.CharField(max_length=50, default='*********')
     # gender = mo.CharField(
     #     max_length=12, choices=Genero.choices, default='Genero.M')
