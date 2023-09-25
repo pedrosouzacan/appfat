@@ -25,14 +25,17 @@ class ProfileSerializer(serializers.ModelSerializer):
         def save_senha(self,validated_data):
             # Extraia a senha do payload validado
             senha = validated_data.pop('senha', None)
+            
+             # Crie um novo usuário com os outros dados fornecidos
+            user = User(**validated_data)
 
         # Use set_senha para criptografar e definir a senha
             if senha is not None:
-                senha.set_senha(senha)
+                user.set_senha(senha)
 
         # Salve a senha no  banco de dados
-            senha.save()
-            return senha
+            user.save()
+            return user
 
 
 class RidesSerializer(serializers.ModelSerializer):
