@@ -12,7 +12,7 @@ def cadastro_view(request):
         try:  # verificar se usuario ja existe!
             user = User.objects.get(request.POST['username'])
         except:  # se nao existir usuario, cria usuario puxando dados inseridos no frontend !
-            user = User.obejects.create_user(
+            user = User.objects.create_user(
                 request.POST['username'], password=request.POST['password'], email=request.POST['email'])
             auth.login(request, user)
 
