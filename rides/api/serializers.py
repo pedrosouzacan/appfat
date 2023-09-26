@@ -30,7 +30,7 @@ class ProfileSerializer(serializers.ModelSerializer):
             senha2 = self.validated_data["senha2"]# validação do campó 'senha2'
             if senha != senha2:
                 raise serializers.ValidationError({'error': 'As senhas precisam ser iguais.'})
-            user.set_password(senha2) #criptografar senha 
+            user.set_password(senha) #criptografar senha 
             user.save() # senha criptografada salva
             return user # retornar user com senha criptografada
 
