@@ -52,6 +52,12 @@ class RidesSerializer(serializers.ModelSerializer):
         for passageiro in passageiros:
             instance.passageiros.add(passageiro)
             return instance
+        
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+   
 
     def get_nome_passageiros(self, obj):
         return obj.nome.passageiros
