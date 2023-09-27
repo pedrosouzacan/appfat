@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-mj+*bie@8*umnsc9^)$)y65!+@1+2(gvby$afqj=*5qdc)e11m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'rides',
     'accounts',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework_simplejwt'
 
 ]
 
@@ -173,5 +175,19 @@ REST_FRAMEWORK = {
 
         # autentificação via Token:
         # 'rest_framework.authentication.TokenAuthentication',
-    )
+    ),
+       
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+
+
+}
+
+# jwt access TOKEN time configuration
+
+SIMPLE_JWT ={
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME':timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS':True
 }

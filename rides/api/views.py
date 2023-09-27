@@ -4,14 +4,14 @@ from rest_framework.response import Response
 from rest_framework import generics, mixins
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import status
 
 
 from accounts.models import Profile
 from rides.models import Ride
-from .serializers import RidesSerializer, ProfileSerializer
+from .serializers import RidesSerializer, ProfileSerializer, UserSerialier
 from django.contrib.auth.models import User
 """
 API de Rides (v1)
@@ -124,7 +124,6 @@ API (v2)
 class RidesViewSet(viewsets.ModelViewSet):
     queryset = Ride.objects.all()
     serializer_class = RidesSerializer
-    permission_class = permissions.DjangoModelPermissions
 
     @action(detail=True, methods=['get'])
     def profiles(self, request, pk=None):
@@ -143,3 +142,17 @@ class RidesViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+# Autentificação para user logado
+class UserDetailAPIView(generics.RetrieveAPIView):
+    
+    """
+    endpoint para pegar informaçôes do user logado
+    
+    """
+    
+    permission_classes =[IsAuthenticated]
+    serializer_class = UserSerialier
+    
+    def get_object(self):
+        return self.request.user

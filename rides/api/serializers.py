@@ -61,3 +61,8 @@ class RidesSerializer(serializers.ModelSerializer):
 
     def get_nome_passageiros(self, obj):
         return obj.nome.passageiros
+
+class UserSerialier(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
